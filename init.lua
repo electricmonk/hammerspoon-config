@@ -31,48 +31,15 @@ hs.grid.HINTS = {
 -- Profiles
 ----------------------------------------------------------------------------------------------------
 
-Profile.new('Home', {69671680}, mash, {
-  ["Atom"]          = {Action.MoveToScreen(1), Action.Maximize()},
-  ["Google Chrome"] = {Action.MoveToScreen(2), Action.MoveToUnit(0.0, 0.0, 0.7, 1.0)},
-  ["iTunes"]        = {Action.MoveToScreen(1), Action.MoveToUnit(0.0, 0.0, 0.7, 1.0)},
-  ["MacPass"]       = {Action.MoveToScreen(1), Action.MoveToUnit(0.0, 0.0, 0.7, 1.0)},
-  ["Mail"]          = {Action.MoveToScreen(1), Action.MoveToUnit(0.0, 0.0, 0.7, 1.0)},
-  ["Reeder"]        = {Action.MoveToScreen(1), Action.MoveToUnit(0.0, 0.0, 0.7, 1.0)},
-  ["Safari"]        = {Action.MoveToScreen(1), Action.MoveToUnit(0.0, 0.0, 0.7, 1.0)},
-  ["SourceTree"]    = {Action.MoveToScreen(1), Action.MoveToUnit(0.0, 0.0, 0.7, 1.0)},
-  ["Terminal"]      = {Action.MoveToScreen(1), Action.MoveToUnit(0.0, 0.5, 1.0, 0.5, 0), Action.PositionBottomRight()},
-  ["TextMate"]      = {Action.MoveToScreen(1), Action.MoveToUnit(0.5, 0.0, 0.5, 1.0)},
-  ["Xcode"]         = {Action.MoveToScreen(1), Action.Maximize()},
-  ["_"]             = {Action.Snap()}
-}, {
-  ['a'] = 'Atom',
-  ['c'] = 'Google Chrome',
-  ['e'] = 'TextMate',
-  ['f'] = 'Finder',
-  ['g'] = 'SourceTree',
-  ['i'] = 'iTunes',
-  ['m'] = 'Activity Monitor',
-  ['r'] = 'Reeder',
-  ['s'] = 'MacPass',
-  ['t'] = 'Terminal',
-  ['x'] = 'Xcode',
-})
-
 ----------------------------------------------------------------------------------------------------
-
-Profile.new('Work', {2077750397, 188898833, 188898834, 188898835, 188898836, 188915586, 188915587}, mash, {
-  ["Atom"]              = {Action.MoveToScreen(1), Action.Maximize()},
-  ["Dash"]              = {Action.MoveToScreen(2), Action.MoveToUnit(0.0, 0.0, 0.5, 1.0)},
-  ["Google Chrome"]     = {Action.MoveToScreen(2), Action.Maximize()},
-  ["iTunes"]            = {Action.Close()},
-  ["MacPass"]           = {Action.MoveToScreen(1), Action.MoveToUnit(0.0, 0.0, 0.7, 1.0)},
-  ["Parallels Desktop"] = {Action.MoveToScreen(2), Action.FullScreen()},
-  ["Safari"]            = {Action.MoveToScreen(2), Action.Maximize()},
-  ["SourceTree"]        = {Action.MoveToScreen(1), Action.Maximize()},
-  ["Terminal"]          = {Action.MoveToScreen(1), Action.MoveToUnit(0.0, 0.5, 1.0, 0.5, 0), Action.PositionBottomRight()},
-  ["TextMate"]          = {Action.MoveToScreen(2), Action.MoveToUnit(0.5, 0.0, 0.5, 1.0)},
-  ["Tower"]             = {Action.MoveToScreen(1), Action.Maximize()},
-  ["Xcode"]             = {Action.MoveToScreen(1), Action.Maximize()},
+					 -- Retina, Horizontal Dell, Vertical Dell
+Profile.new('Work', {69731906, 725376209, 724062932}, mash, {
+  ["iTerm"]              = {Action.MoveToScreen(1), Action.Maximize()},
+  ["iTunes"]              = {Action.MoveToScreen(1), Action.Maximize()},
+  ["Calendar"]              = {Action.MoveToScreen(1), Action.Maximize()},
+  ["Messages"]              = {Action.MoveToScreen(1), Action.Maximize()},
+  ["Google Chrome"]     = {Action.MoveToScreen(3), Action.Maximize()},
+  ["WebStorm"]           = {Action.MoveToScreen(1), Action.Maximize()},
   ["_"]                 = {Action.Snap()}
 }, {
   ['a'] = 'Atom',
@@ -91,7 +58,7 @@ Profile.new('Work', {2077750397, 188898833, 188898834, 188898835, 188898836, 188
 
 ----------------------------------------------------------------------------------------------------
 -- Hotkey Bindings
-----------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
 
 function focusedWin() return hs.window.focusedWindow() end
 
@@ -102,7 +69,7 @@ hs.hotkey.bind(mash, 'RIGHT', function() Action.MoveToUnit(0.5, 0.0, 0.5, 1.0)(f
 hs.hotkey.bind(mash, 'SPACE', function() for _, win in pairs(hs.window.visibleWindows()) do hs.grid.snap(win) end end)
 hs.hotkey.bind(mash, '1',     function() expose:toggleShow() end)
 hs.hotkey.bind(mash, '2',     function() hs.grid.toggleShow() end)
-hs.hotkey.bind(mash, '^',     function()
+hs.hotkey.bind(mash, 'p',     function()
   local profile = Profile.designated()
   if profile then profile:activate() end
 end)
@@ -115,7 +82,7 @@ function screenEvent()
   local profile = Profile.designated()
   if not profile then
       utils.notify("unknown profile, see console for screen information", 3.0, function() hs.toggleConsole() end)
-      for _, screen in pairs(hs.screen.allScreens()) do print("found screen: " .. screen:id()) end
+      for _, screen in pairs(hs.screen.allScreens()) do print("found screen: " .. screen:id() .. ": " .. screen:name()) end
       return
   end
   profile:activate()
